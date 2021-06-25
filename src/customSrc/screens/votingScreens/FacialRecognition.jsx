@@ -11,6 +11,8 @@ import { Button } from "@material-ui/core";
 
 import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
+import { SettingsPhoneTwoTone } from "@material-ui/icons";
+import { Alert } from "react-bootstrap";
 
 function FacialRecognition(props) {
   if (props.history.location.state == undefined || !props.location.state) {
@@ -36,6 +38,10 @@ function FacialRecognition(props) {
   const [isVerified, setIsVerified] = useState(true);
   const [isFace2, setIsFace2] = useState(false);
 
+  const [faceMatched, setFaceMatched] = useState(0);
+
+  const [alertType, setAlertType] = useState();
+  const [show, setShow] = useState();
   const detectFirstImage = async () => {
     if (isVerified == true) {
       //console.log("propsssssss=========> ", props.location.state);
@@ -82,6 +88,9 @@ function FacialRecognition(props) {
     }
   }, [faceID2, isFace2, isIdentical]);
 
+  useEffect(() => {
+    // Verify();
+  }, [faceMatched]);
   const UploadImageToCLoud = async (e) => {
     //console.log("UPLOADDDDD", capturedImage);
     const formData = new FormData();
@@ -147,13 +156,15 @@ function FacialRecognition(props) {
     )
       .then((response) => response.json())
       .then((response) => {
-        //console.log(response); //here is the face ID of
+        // console.log(response); //here is the face ID of
         SetIsIdentical(response.isIdentical);
-        console.log(isIdentical);
+        console.log(response.isIdentical);
         SetVoter(props.location.state);
         if (voter) {
           gotoCandidates();
         } else {
+          setAlertType("info");
+          setShow(true);
           console.log("yhn masla hai....");
         }
       })
@@ -183,32 +194,65 @@ function FacialRecognition(props) {
         <VotingHeader />
       </AppHeader>
 
-      <div className="app-body">
-        <Grid item xs={12} sm={6} style={{ margin: "auto" }}>
-          <Webcam
-            ref={webcamRef}
-            videoConstraints={videoConstraints}
-            mirrored={true}
-            screenshotFormat="image/jpeg"
-          />
-          {/* <Camera
-            
-              onTakePhoto={ (image) =>{
-                //console.log(image)
-                SetCapturedImage(image)
-                 
-              }}
-            /> */}
-          <ThemeProvider theme={theme}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={capture}
-            >
-              Recognize
-            </Button>
-          </ThemeProvider>
+      <div className="app-body" style={{ marginTop: "10px" }}>
+        <Grid container spacing={2} style={{ margin: "auto" }}>
+          <Grid
+            item
+            xs={6}
+            style={{ position: "fixed", top: "78px", left: "100px" }}
+          >
+            <Webcam
+              ref={webcamRef}
+              videoConstraints={videoConstraints}
+              mirrored={true}
+              screenshotFormat="image/jpeg"
+            />
+          </Grid>
+          <Grid
+            item
+            xs={3}
+            style={{ position: "fixed", right: "120px", top: "180px" }}
+          >
+            {show ? (
+              <Alert
+                variant={alertType}
+                onClose={() => setShow(false)}
+                dismissible
+              >
+                <Alert.Heading>
+                  Click twice nothing when happens !
+                </Alert.Heading>
+                <p>
+                  {
+                    "Sometimes the server is busy it takes time to process your request Thankyou."
+                  }
+                </p>
+              </Alert>
+            ) : null}
+
+            <ThemeProvider theme={theme}>
+              <Button
+                variant="contained"
+                color="primary"
+                // fullWidth
+                onClick={() => {
+                  capture();
+                  setFaceMatched(1);
+                }}
+                style={{
+                  position: "fixed",
+                  width: "23%",
+                  height: "11%",
+                  fontSize: "1.9rem",
+                  fontFamily: "Raleway",
+                  bottom: "204px",
+                  right: "131px",
+                }}
+              >
+                Recognize
+              </Button>
+            </ThemeProvider>
+          </Grid>
         </Grid>
       </div>
 

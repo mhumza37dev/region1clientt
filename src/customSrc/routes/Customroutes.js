@@ -10,11 +10,13 @@ import Login from "../screens/adminScreens/Login";
 import LandingPage from "../screens/landingPage/LandingPage";
 import CandidateList from "../screens/votingScreens/CandidateList";
 import Eligibility from "../screens/votingScreens/Eligibility";
-import FacialRecognition from "../screens/votingScreens/FacialRecognition";
+// import FacialRecognition from "../screens/votingScreens/FacialRecognition";
 import DefaultLayout from "../../containers/DefaultLayout/DefaultLayout";
 import Register from "../screens/adminScreens/Register";
 import Page500 from "./../../views/Pages/Page500/Page500";
 import Result from "./../screens/Result Screen/Result";
+
+import FacialRecognition from "../screens/votingScreens/FacialRecognition2y";
 
 const Customroutes = () => {
   // debugger;

@@ -83,7 +83,7 @@ function Eligibility(props) {
       cnic: cnic,
     };
     console.log("body ==> ", body);
-    await fetch("https://region1server.herokuapp.com/Voters/check", {
+    await fetch("https://region1server.herokuapp.com/voters/check", {
       method: "POST",
       dataType: "JSON",
       headers: {
@@ -98,9 +98,9 @@ function Eligibility(props) {
         return resp.json();
       })
       .then((resp) => {
-        console.log("resps set ", resp);
-        if (!resp) {
+        if (resp === null || resp === undefined || resp.lenght <= 0) {
           console.log("!resp....");
+
           setTimeout(() => {
             setError("User Not Found Check Your NIC");
             setOpen(true);
@@ -114,6 +114,8 @@ function Eligibility(props) {
               setOpen2(true);
             }, 1000);
           } else if (myDecipher(resp.hasVoted) === "true") {
+            console.log("this voter hasvoted ", myDecipher(resp.hasVoted));
+
             setError("You have Already Voted.");
             setOpen(true);
             setLoading(false);
@@ -129,6 +131,7 @@ function Eligibility(props) {
         return true;
       })
       .catch((error) => {
+        console.log(error);
         setError("Network Error...");
         setTimeout(function () {
           setOpen(true);

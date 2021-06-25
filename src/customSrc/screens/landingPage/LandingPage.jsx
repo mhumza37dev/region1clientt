@@ -11,45 +11,7 @@ function LandingPage(props) {
   const [pollingCoords, setPollingCoords] = useState();
   const [electionStatus, setElectionStatus] = useState();
 
-  useMemo(() => {
-    // fetch("https://region1server.herokuapp.com/voters")
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     // console.log(res[0].PollingStationCoordinates);
-    //     localStorage.setItem(
-    //       "polling_co-ords",
-    //       JSON.stringify({
-    //         lat: res[0].PollingStationCoordinates.Latitude,
-    //         lng: res[0].PollingStationCoordinates.Longitude,
-    //       })
-    //     );
-    //   })
-    //   .catch((e) => {
-    //     localStorage.setItem(
-    //       "polling_co-ords",
-    //       JSON.stringify({
-    //         lat: 24.922149604133335,
-    //         lng: 67.02731167895583,
-    //       })
-    //     );
-    //   });
-    // navigator.geolocation.getCurrentPosition(function (position) {
-    //   // console.log(position.coords);
-    //   localStorage.setItem(
-    //     "current_co-ords",
-    //     JSON.stringify({
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.longitude,
-    //     })
-    //   );
-    // });
-    // var haversine_m = haversine(
-    //   JSON.parse(localStorage.getItem("polling_co-ords")),
-    //   JSON.parse(localStorage.getItem("current_co-ords"))
-    // ); //Results in meters (default)
-    // console.log("distance (in meters): " + haversine_m + " meters");
-    // setDistance(haversine_m);
-  }, [pollingCoords]);
+  useMemo(() => {}, [pollingCoords]);
   //First point in your haversine calculation
   var point1 = { lat: 24.922149604133335, lng: 67.02731167895583 };
 
@@ -60,15 +22,10 @@ function LandingPage(props) {
     fetch("https://region1server.herokuapp.com/election/")
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         setElectionStatus(res);
       });
-    // var haversine_m = haversine(
-    //   JSON.parse(localStorage.getItem("polling_co-ords")),
-    //   JSON.parse(localStorage.getItem("current_co-ords"))
-    // ); //Results in meters (default)
-    // console.log("distance (in meters): " + haversine_m + " meters");
-    // setDistance(haversine_m);
-  }, [distance]);
+  }, []);
 
   return (
     <div>
@@ -79,13 +36,14 @@ function LandingPage(props) {
               <nav className="main-nav">
                 <a onClick={() => props.history.push("/")} className="logo">
                   <img
+                    className="landing-logo"
                     src={logo}
                     alt="DevS"
                     style={{
-                      width: "62px",
-                      height: "62px",
+                      width: "75px",
+                      height: "75px",
                       position: "fixed",
-                      top: "6.3%",
+                      top: "34px",
                     }}
                   />
                 </a>
@@ -263,7 +221,7 @@ function LandingPage(props) {
                     <img src="http://placehold.it/60x60" alt="" />
                   </div>
                   <div className="team-info">
-                    <h3 className="user-name">Syed Adeena</h3>
+                    <h3 className="user-name">Adeena Hussain</h3>
                     <span>Designer</span>
                   </div>
                 </div>
