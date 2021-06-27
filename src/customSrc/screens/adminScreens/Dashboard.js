@@ -59,7 +59,7 @@ const Dashboard = () => {
           <DefaultAside />
         </AppAside>
       </div>
-      <AppFooter>
+      <AppFooter fixed>
         <DefaultFooter fixed />
       </AppFooter>
     </div>

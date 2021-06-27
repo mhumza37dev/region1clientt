@@ -255,75 +255,77 @@ function Eligibility(props) {
                           </Collapse>
                           <Container component="main" maxWidth="xs">
                             <CssBaseline />
-                            <div className={classes.paper}>
-                              <ThemeProvider theme={theme}>
-                                <TextField
-                                  variant="outlined"
-                                  margin="normal"
-                                  required
+                            <form>
+                              <div className={classes.paper}>
+                                <ThemeProvider theme={theme}>
+                                  <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="Enter Your Full Name"
+                                    name="name"
+                                    autoComplete="name"
+                                    autoFocus
+                                    onChange={(e) => {
+                                      setState({ name: e.target.value });
+                                    }}
+                                  />
+                                  <InputMask
+                                    mask="99999-9999999-9"
+                                    className={classes.mask}
+                                    //   value={this.state.cnic}
+                                    disabled={false}
+                                    maskChar="*"
+                                    //   alwaysShowMask
+                                    placeholder="42101-1234567-1"
+                                    onChange={(e) => {
+                                      setState({
+                                        ...state,
+                                        cnic: e.target.value,
+                                      });
+                                      console.log(state);
+                                    }}
+                                    required
+                                  >
+                                    {() => (
+                                      <TextField
+                                        label="Enter Your CNIC"
+                                        variant="outlined"
+                                        fullWidth
+                                        required={true}
+                                      />
+                                    )}
+                                  </InputMask>
+                                </ThemeProvider>{" "}
+                                <br />
+                                <br />
+                                <Button
+                                  style={{
+                                    backgroundColor: "#527960",
+                                    color: "white",
+                                  }}
+                                  type="bbb"
+                                  variant="contained"
                                   fullWidth
-                                  id="name"
-                                  label="Enter Your Full Name"
-                                  name="name"
-                                  autoComplete="name"
-                                  autoFocus
-                                  onChange={(e) => {
-                                    setState({ name: e.target.value });
+                                  disabled={loading}
+                                  onClick={() => {
+                                    checker();
                                   }}
-                                />
-                                <InputMask
-                                  mask="99999-9999999-9"
-                                  className={classes.mask}
-                                  //   value={this.state.cnic}
-                                  disabled={false}
-                                  maskChar="*"
-                                  //   alwaysShowMask
-                                  placeholder="42101-1234567-1"
-                                  onChange={(e) => {
-                                    setState({
-                                      ...state,
-                                      cnic: e.target.value,
-                                    });
-                                    console.log(state);
-                                  }}
-                                  required
+                                  className={classes.submit}
                                 >
-                                  {() => (
-                                    <TextField
-                                      label="Enter Your CNIC"
-                                      variant="outlined"
-                                      fullWidth
-                                      required={true}
+                                  {loading && (
+                                    <i
+                                      className="fa fa-refresh fa-spin"
+                                      style={{ marginRight: "5px" }}
                                     />
                                   )}
-                                </InputMask>
-                              </ThemeProvider>{" "}
-                              <br />
-                              <br />
-                              <Button
-                                style={{
-                                  backgroundColor: "#527960",
-                                  color: "white",
-                                }}
-                                type="bbb"
-                                variant="contained"
-                                fullWidth
-                                disabled={loading}
-                                onClick={() => {
-                                  checker();
-                                }}
-                                className={classes.submit}
-                              >
-                                {loading && (
-                                  <i
-                                    className="fa fa-refresh fa-spin"
-                                    style={{ marginRight: "5px" }}
-                                  />
-                                )}
-                                {loading && <span>Please Wait</span>}
-                                {!loading && <strong>Check</strong>}
-                              </Button>
-                            </div>
+                                  {loading && <span>Please Wait</span>}
+                                  {!loading && <strong>Check</strong>}
+                                </Button>
+                              </div>
+                            </form>
                           </Container>
                         </div>
                       </div>

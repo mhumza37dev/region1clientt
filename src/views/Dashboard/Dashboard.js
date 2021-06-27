@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Bar, Line } from "react-chartjs-2";
+import Clock from "react-digital-clock";
+import Avatar from "@material-ui/core/Avatar";
 import {
   Badge,
   Button,
@@ -503,6 +505,11 @@ class Dashboard extends Component {
     this.state = {
       dropdownOpen: false,
       radioSelected: 2,
+      electionStatus: undefined,
+      totalVoters: undefined,
+      totalCandidates: undefined,
+      voters: undefined,
+      candidates: undefined,
     };
   }
 
@@ -518,30 +525,48 @@ class Dashboard extends Component {
     });
   }
 
+  componentDidMount() {
+    fetch("https://region1server.herokuapp.com/election")
+      .then((res) => res.json())
+      .then((res) => this.setState({ electionStatus: res.status }));
+
+    fetch("https://region1server.herokuapp.com/voters")
+      .then((res) => res.json())
+      .then((res) => this.setState({ totalVoters: res.length, voters: res }));
+
+    fetch("https://region1server.herokuapp.com/candidates")
+      .then((res) => res.json())
+      .then((res) =>
+        this.setState({ totalCandidates: res.length, candidates: res })
+      );
+  }
+
   render() {
     return (
       <div className="animated fadeIn">
         <div class="row">
           <div class="col-md-3">
             <div class="card-counter primary">
-              <i class="fa fa-code-fork"></i>
-              <span class="count-numbers">Ended</span>
-              <span class="count-name">Status</span>
+              <i class="fa fa-clock-o"></i>
+              <span class="count-numbers">
+                <Clock />
+              </span>
+              <span class="count-name">Time</span>
             </div>
           </div>
 
           <div class="col-md-3">
             <div class="card-counter danger">
-              <i class="fa fa-ticket"></i>
-              <span class="count-numbers">0</span>
-              <span class="count-name">Instances</span>
+              <i class="fa fa-code-fork"></i>
+              <span class="count-numbers">{this.state.electionStatus}</span>
+              <span class="count-name">Status</span>
             </div>
           </div>
 
           <div class="col-md-3">
             <div class="card-counter success">
               <i class="fa fa-user"></i>
-              <span class="count-numbers">0</span>
+              <span class="count-numbers">{this.state.totalCandidates}</span>
               <span class="count-name">Candidates</span>
             </div>
           </div>
@@ -549,7 +574,7 @@ class Dashboard extends Component {
           <div class="col-md-3">
             <div class="card-counter info">
               <i class="fa fa-users"></i>
-              <span class="count-numbers">0</span>
+              <span class="count-numbers">{this.state.totalVoters}</span>
               <span class="count-name">Voters</span>
             </div>
           </div>
@@ -559,59 +584,52 @@ class Dashboard extends Component {
           <Col>
             <Card>
               <CardBody>
-                <Row>
-                  <Col sm="5">
-                    <CardTitle className="mb-0">Election</CardTitle>
-                    <div className="small text-muted"></div>
-                  </Col>
-                </Row>
-                <div
-                  className="chart-wrapper"
-                  style={{ height: 300 + "px", marginTop: 40 + "px" }}
+                <Table
+                  hover
+                  responsive
+                  className="table-outline mb-0 d-none d-sm-table"
                 >
-                  <Line data={mainChart} options={mainChartOpts} height={300} />
-                </div>
+                  <thead className="thead-light">
+                    <tr>
+                      <th className="text-center">
+                        <i className="icon-people"></i>
+                      </th>
+                      <th>Candidate</th>
+                      <th className="text-center">Region</th>
+                      <th>Party</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.candidates !== undefined &&
+                      this.state.candidates.slice(0, 3).map((voter) => (
+                        <tr>
+                          <td className="text-center">
+                            <Avatar
+                              alt={voter.Fulname}
+                              src={voter.image}
+                              style={{ margin: "0 auto" }}
+                            />
+                          </td>
+                          <td>
+                            <div>{voter.Fullname}</div>
+                          </td>
+
+                          <td className="text-center">
+                            <div className="clearfix">
+                              <div className="">
+                                <strong>{voter.constituency}</strong>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td>
+                            <strong>{voter.Party.party_Id}</strong>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </Table>
               </CardBody>
-              <CardFooter>
-                <Row className="text-center">
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">PTI</div>
-                    <strong>29.703 Votes (40%)</strong>
-                    <Progress
-                      className="progress-xs mt-2"
-                      color="success"
-                      value="40"
-                    />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                    <div className="text-muted">ML-N</div>
-                    <strong>24.093 Votes (20%)</strong>
-                    <Progress
-                      className="progress-xs mt-2"
-                      color="info"
-                      value="20"
-                    />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">MQM</div>
-                    <strong>78.706 Votes (60%)</strong>
-                    <Progress
-                      className="progress-xs mt-2"
-                      color="warning"
-                      value="60"
-                    />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">PPP</div>
-                    <strong>22.123 Votes (80%)</strong>
-                    <Progress
-                      className="progress-xs mt-2"
-                      color="danger"
-                      value="80"
-                    />
-                  </Col>
-                </Row>
-              </CardFooter>
             </Card>
           </Col>
         </Row>
@@ -619,9 +637,7 @@ class Dashboard extends Component {
         <Row>
           <Col>
             <Card>
-              <CardHeader>Voters</CardHeader>
               <CardBody>
-                <br />
                 <Table
                   hover
                   responsive
@@ -633,216 +649,36 @@ class Dashboard extends Component {
                         <i className="icon-people"></i>
                       </th>
                       <th>Voter</th>
-                      <th className="text-center">Country</th>
-                      <th>Last Activity</th>
+                      <th className="text-center">Region</th>
+                      <th>Polling station</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="text-center">
-                        <div className="avatar">
-                          <img
-                            src={"assets/img/avatars/1.jpg"}
-                            className="img-avatar"
-                            alt="admin@bootstrapmaster.com"
-                          />
-                          <span className="avatar-status badge-success"></span>
-                        </div>
-                      </td>
-                      <td>
-                        <div>Yiorgos Avraamu</div>
-                        <div className="small text-muted">
-                          <span>New</span> | Registered: Jan 1, 2015
-                        </div>
-                      </td>
+                    {this.state.voters !== undefined &&
+                      this.state.voters.slice(0, 3).map((voter) => (
+                        <tr>
+                          <td className="text-center">
+                            <Avatar
+                              alt={voter.Fulname}
+                              src={voter.image}
+                              style={{ margin: "0 auto" }}
+                            />
+                          </td>
+                          <td>
+                            <div>{voter.Fullname}</div>
+                          </td>
 
-                      <td>
-                        <div className="clearfix">
-                          <div className="float-left">
-                            <strong>50%</strong>
-                          </div>
-                          <div className="float-right">
-                            <small className="text-muted">
-                              Jun 11, 2015 - Jul 10, 2015
-                            </small>
-                          </div>
-                        </div>
-                        <Progress
-                          className="progress-xs"
-                          color="success"
-                          value="50"
-                        />
-                      </td>
+                          <td>
+                            <div className="text-center">
+                              <strong>{voter.constituency}</strong>
+                            </div>
+                          </td>
 
-                      <td>
-                        <div className="small text-muted">Last login</div>
-                        <strong>10 sec ago</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-center">
-                        <div className="avatar">
-                          <img
-                            src={"assets/img/avatars/2.jpg"}
-                            className="img-avatar"
-                            alt="admin@bootstrapmaster.com"
-                          />
-                          <span className="avatar-status badge-danger"></span>
-                        </div>
-                      </td>
-                      <td>
-                        <div>Avram Tarasios</div>
-                        <div className="small text-muted">
-                          <span>Recurring</span> | Registered: Jan 1, 2015
-                        </div>
-                      </td>
-
-                      <td>
-                        <div className="clearfix">
-                          <div className="float-left">
-                            <strong>10%</strong>
-                          </div>
-                          <div className="float-right">
-                            <small className="text-muted">
-                              Jun 11, 2015 - Jul 10, 2015
-                            </small>
-                          </div>
-                        </div>
-                        <Progress
-                          className="progress-xs"
-                          color="info"
-                          value="10"
-                        />
-                      </td>
-
-                      <td>
-                        <div className="small text-muted">Last login</div>
-                        <strong>5 minutes ago</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-center">
-                        <div className="avatar">
-                          <img
-                            src={"assets/img/avatars/3.jpg"}
-                            className="img-avatar"
-                            alt="admin@bootstrapmaster.com"
-                          />
-                          <span className="avatar-status badge-warning"></span>
-                        </div>
-                      </td>
-                      <td>
-                        <div>Quintin Ed</div>
-                        <div className="small text-muted">
-                          <span>New</span> | Registered: Jan 1, 2015
-                        </div>
-                      </td>
-
-                      <td>
-                        <div className="clearfix">
-                          <div className="float-left">
-                            <strong>74%</strong>
-                          </div>
-                          <div className="float-right">
-                            <small className="text-muted">
-                              Jun 11, 2015 - Jul 10, 2015
-                            </small>
-                          </div>
-                        </div>
-                        <Progress
-                          className="progress-xs"
-                          color="warning"
-                          value="74"
-                        />
-                      </td>
-
-                      <td>
-                        <div className="small text-muted">Last login</div>
-                        <strong>1 hour ago</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-center">
-                        <div className="avatar">
-                          <img
-                            src={"assets/img/avatars/4.jpg"}
-                            className="img-avatar"
-                            alt="admin@bootstrapmaster.com"
-                          />
-                          <span className="avatar-status badge-secondary"></span>
-                        </div>
-                      </td>
-                      <td>
-                        <div>Enéas Kwadwo</div>
-                        <div className="small text-muted">
-                          <span>New</span> | Registered: Jan 1, 2015
-                        </div>
-                      </td>
-
-                      <td>
-                        <div className="clearfix">
-                          <div className="float-left">
-                            <strong>98%</strong>
-                          </div>
-                          <div className="float-right">
-                            <small className="text-muted">
-                              Jun 11, 2015 - Jul 10, 2015
-                            </small>
-                          </div>
-                        </div>
-                        <Progress
-                          className="progress-xs"
-                          color="danger"
-                          value="98"
-                        />
-                      </td>
-
-                      <td>
-                        <div className="small text-muted">Last login</div>
-                        <strong>Last month</strong>
-                      </td>
-                    </tr>{" "}
-                    <tr>
-                      <td className="text-center">
-                        <div className="avatar">
-                          <img
-                            src={"assets/img/avatars/6.jpg"}
-                            className="img-avatar"
-                            alt="admin@bootstrapmaster.com"
-                          />
-                          <span className="avatar-status badge-danger"></span>
-                        </div>
-                      </td>
-                      <td>
-                        <div>Friderik Dávid</div>
-                        <div className="small text-muted">
-                          <span>New</span> | Registered: Jan 1, 2015
-                        </div>
-                      </td>
-
-                      <td>
-                        <div className="clearfix">
-                          <div className="float-left">
-                            <strong>43%</strong>
-                          </div>
-                          <div className="float-right">
-                            <small className="text-muted">
-                              Jun 11, 2015 - Jul 10, 2015
-                            </small>
-                          </div>
-                        </div>
-                        <Progress
-                          className="progress-xs"
-                          color="success"
-                          value="43"
-                        />
-                      </td>
-
-                      <td>
-                        <div className="small text-muted">Last login</div>
-                        <strong>Yesterday</strong>
-                      </td>
-                    </tr>
+                          <td>
+                            <strong>{voter.PollingStation_Id}</strong>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </Table>
               </CardBody>

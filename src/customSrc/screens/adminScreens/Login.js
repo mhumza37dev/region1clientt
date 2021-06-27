@@ -149,64 +149,66 @@ const Login = (props) => {
                     Sign In to your account
                   </h2>
                   <br />
-                  <InputGroup className="mb-3">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="icon-user"></i>
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </InputGroup>
-                  <InputGroup className="mb-4">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="icon-lock"></i>
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      onChange={(e) => setPass(e.target.value)}
-                    />
-                  </InputGroup>
-                  <Row>
-                    <Col xs="8">
-                      <Button
-                        color="primary"
-                        className="px-4"
-                        style={{ background: "#2E8B57" }}
-                        onClick={() => {
-                          log();
-                        }}
-                      >
-                        {loading && (
-                          <i
-                            className="fa fa-refresh fa-spin"
-                            style={{ marginRight: "5px" }}
-                          />
-                        )}
-                        {loading && <span>Please Wait</span>}
-                        {!loading && <strong>Login</strong>}
-                      </Button>
-                    </Col>
+                  <form>
+                    <InputGroup className="mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="icon-user"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="email"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </InputGroup>
+                    <InputGroup className="mb-4">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="icon-lock"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPass(e.target.value)}
+                      />
+                    </InputGroup>
+                    <Row>
+                      <Col xs="8">
+                        <Button
+                          color="primary"
+                          className="px-4"
+                          style={{ background: "#2E8B57" }}
+                          onClick={() => {
+                            log();
+                          }}
+                        >
+                          {loading && (
+                            <i
+                              className="fa fa-refresh fa-spin"
+                              style={{ marginRight: "5px" }}
+                            />
+                          )}
+                          {loading && <span>Please Wait</span>}
+                          {!loading && <strong>Login</strong>}
+                        </Button>
+                      </Col>
 
-                    <Col xs="4">
-                      <Button
-                        color="secondary"
-                        className="px-4 text-right"
-                        style={{ background: "", float: "right" }}
-                        onClick={() => {
-                          props.history.push("/");
-                        }}
-                      >
-                        Home
-                      </Button>
-                    </Col>
-                  </Row>
+                      <Col xs="4">
+                        <Button
+                          color="secondary"
+                          className="px-4 text-right"
+                          style={{ background: "", float: "right" }}
+                          onClick={() => {
+                            props.history.push("/");
+                          }}
+                        >
+                          Home
+                        </Button>
+                      </Col>
+                    </Row>
+                  </form>
                 </CardBody>
               </Card>
             </CardGroup>
