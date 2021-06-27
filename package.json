@@ -7,7 +7,6 @@
     "url": "http://holeczek.pl",
     "github": "https://github.com/mhumza37dev"
   },
-  "homepage": ".",
   "private": true,
   "dependencies": {
     "@agney/react-loading": "^0.1.2",
