@@ -9,7 +9,7 @@ import Select from "@material-ui/core/Select";
 
 export default function Voters() {
   const [responsive, setResponsive] = useState("simple");
-  const [tableBodyHeight, setTableBodyHeight] = useState("350px");
+  const [tableBodyHeight, setTableBodyHeight] = useState("450px");
   const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
 
   const [data, setData] = useState();
@@ -46,12 +46,7 @@ export default function Voters() {
             <MUIDataTable
               title={"Voter's List"}
               data={data}
-              columns={[
-                "Fullname",
-                "constituency",
-                "PollingStation_Id",
-                "hasVoted",
-              ]}
+              columns={["Fullname", "constituency", "PollingStation_Id"]}
               options={options}
             />
           </div>
