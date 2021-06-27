@@ -5,11 +5,11 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import Customroutes from "./customSrc/routes/Customroutes";
-import './scss/style.css'
+import "./scss/style.css";
 // import Customroutes from "./customSrc/routes/Customroutes";
 
 // disable ServiceWorker
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from "./registerServiceWorker";
 // const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 
 ReactDOM.render(
@@ -20,4 +20,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 // disable ServiceWorker
-// registerServiceWorker();
+registerServiceWorker();
