@@ -38,16 +38,23 @@ export default function Voters() {
 
   return (
     <React.Fragment>
-      <div style={{ margin: "1%" }}>
+      <div className="animated fadeIn" style={{ margin: "1%" }}>
         {!data ? (
           <h1>loading.......</h1>
         ) : (
-          <MUIDataTable
-            title={"Voter's List"}
-            data={data}
-            columns={columns}
-            options={options}
-          />
+          <div className="animated fadeIn">
+            <MUIDataTable
+              title={"Voter's List"}
+              data={data}
+              columns={[
+                "Fullname",
+                "constituency",
+                "PollingStation_Id",
+                "hasVoted",
+              ]}
+              options={options}
+            />
+          </div>
         )}
       </div>
     </React.Fragment>

@@ -135,7 +135,7 @@ const Login = (props) => {
       className="app flex-row align-items-center"
       style={{ background: "-webkit-linear-gradient(left, #134324, #7bf3a5)" }}
     >
-      <Container>
+      <Container className="animated fadeIn">
         <Row className="justify-content-center">
           <Col md="8">
             <Alert color={alertType} isOpen={visible} toggle={onDismiss}>

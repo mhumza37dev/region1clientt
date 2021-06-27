@@ -15,28 +15,34 @@ export default function Candidate() {
   const [data, setData] = useState();
 
   const fakeData = [
-    {FullName:"Gabby George",Party: "Business Analyst", Constituency: "Minneapolis"},
-    {FullName:"Jaden Collins"},
-    {FullName:"Franky Rees"},
-    {FullName:"Aaren Rose"},
-    {FullName:"Johnny Jones"},
-    {FullName:"Jimmy Johns"},
-    {FullName:"Jack Jackson"},
-    {FullName:"Joe Jones"},
-    {FullName:"Jacky Jackson"},
-    {FullName:"Jo Jo"},
-    {FullName:"Donna Marie"},
+    {
+      FullName: "Gabby George",
+      Party: "Business Analyst",
+      Constituency: "Minneapolis",
+    },
+    { FullName: "Jaden Collins" },
+    { FullName: "Franky Rees" },
+    { FullName: "Aaren Rose" },
+    { FullName: "Johnny Jones" },
+    { FullName: "Jimmy Johns" },
+    { FullName: "Jack Jackson" },
+    { FullName: "Joe Jones" },
+    { FullName: "Jacky Jackson" },
+    { FullName: "Jo Jo" },
+    { FullName: "Donna Marie" },
   ];
   const getVoters = async () => {
-    const response = await fetch("https://region1server.herokuapp.com/candidates");
+    const response = await fetch(
+      "https://region1server.herokuapp.com/candidates"
+    );
     const data1 = await response.json();
     console.log(data1);
     setData(data1);
   };
 
   useEffect(() => {
-    console.log('USE')
-getVoters();
+    console.log("USE");
+    getVoters();
   }, []);
   // useEffect(() =>{
 
@@ -54,15 +60,19 @@ getVoters();
 
   return (
     <React.Fragment>
-      <div style={{ margin: "1%" }}>
-          {!data ? <h1>loading.......</h1> :
-        <MUIDataTable
-          title={"Candidate's List"}
-          data={data}
-          columns={columns}
-          options={options}
-        />
-    }
+      <div className="animated fadeIn" style={{ margin: "1%" }}>
+        {!data ? (
+          <h1>loading.......</h1>
+        ) : (
+          <div className="animated fadeIn">
+            <MUIDataTable
+              title={"Candidate's List"}
+              data={data}
+              columns={columns}
+              options={options}
+            />
+          </div>
+        )}
       </div>
     </React.Fragment>
   );

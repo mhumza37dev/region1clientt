@@ -185,14 +185,14 @@ const Charts = () => {
       {!election ? (
         <h1>loading.......</h1>
       ) : (
-        <div className="cols-2">
+        <div className="cols-2 animated fadeIn">
           {election !== undefined && election.status !== "started" ? (
             <div>
               <div>
                 <strong>
                   <br />
                 </strong>
-                <div className="div-header-actions">
+                <div className="div-header-actions animated fadeIn">
                   <a
                     href="http://www.chartjs.org"
                     className="div-header-action"
@@ -204,7 +204,7 @@ const Charts = () => {
 
               <div>
                 <div
-                  className="chart-wrapper"
+                  className="chart-wrapper animated fadeIn"
                   style={{
                     boxShadow:
                       "0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%)",
@@ -221,8 +221,9 @@ const Charts = () => {
             <a
               href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiM79Dj0PrwAhUDyjgGHQ0uDfM4ChAWMAZ6BAgNEAM&url=https%3A%2F%2Fftcab.com%2Franchi-to-kolkata-taxi.aspx&usg=AOvVaw0U_uX-PE1DK6AtGch8Dzyn"
               target="_blank"
+              className="animated fadeIn"
             >
-              <div className="container">
+              <div className="container animated fadeIn">
                 <div className="row">
                   <div className="col-sm-12 col-md-12 mt-5 mb-5">
                     <svg

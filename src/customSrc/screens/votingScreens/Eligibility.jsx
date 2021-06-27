@@ -24,6 +24,14 @@ import MuiAlert from "@material-ui/lab/Alert";
 // 9/may/2021
 
 function Eligibility(props) {
+  if (
+    props.history.location.state === undefined ||
+    !props.location.state ||
+    props.location.state === null
+  ) {
+    props.history.push("/");
+  }
+
   console.log(localStorage.getItem("distance"));
   const [CurrentCoordinates, setCurrentCoordinates] = useState({
     latitude: "",
@@ -164,10 +172,10 @@ function Eligibility(props) {
   // console.log(props);
 
   if (
-    props.location.state.status === "ended" ||
-    !props.location.state ||
+    props.location.state === null ||
     props.location.state === undefined ||
-    props.location.state === null
+    !props.location.state ||
+    props.location.state.status === "ended"
   ) {
     return (
       <div className="body">
@@ -192,7 +200,7 @@ function Eligibility(props) {
           <VotingHeader />
         </AppHeader>
 
-        <div className="app-body">
+        <div className="app-body animated fadeIn">
           <Snackbar open={open2} autoHideDuration={3000} onClose={handleClose}>
             <Alertt onClose={handleClose} severity="info">
               Your are not allowed to cast in this polling Station,Please vist

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import React, { Component } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { Container } from "reactstrap";
 
 import {
   AppAside,
@@ -13,28 +13,23 @@ import {
   AppSidebarHeader,
   AppSidebarMinimizer,
   AppSidebarNav,
-} from '@coreui/react';
+} from "@coreui/react";
 // sidebar nav config
-import navigation from '../../customNav';
+import navigation from "../../customNav";
 // routes config
-import routes from '../../routes';
+import routes from "../../routes";
 
-import DefaultAside from './DefaultAside';
-import DefaultFooter from './DefaultFooter';
-import DefaultHeader from './DefaultHeader';
-
-
+import DefaultAside from "./DefaultAside";
+import DefaultFooter from "./DefaultFooter";
+import DefaultHeader from "./DefaultHeader";
 
 class DefaultLayout extends Component {
   render() {
+    const { history } = this.props;
 
-    const {history} = this.props;
-
-    if(!localStorage.getItem("admin")){
-      history.push("/admin/login")
+    if (!localStorage.getItem("admin")) {
+      history.push("/admin/login");
     }
-
-
 
     return (
       <div className="app">
@@ -50,16 +45,20 @@ class DefaultLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            {/* <AppBreadcrumb appRoutes={routes}/> */}
+            {/* <AppBreadcrumb appRoutes={routes} /> */}
             <Container fluid>
               <Switch>
                 {routes.map((route, idx) => {
-                    return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
-                        <route.component {...props} />
-                      )} />)
-                      : (null);
-                  },
-                )}
+                  return route.component ? (
+                    <Route
+                      key={idx}
+                      path={route.path}
+                      exact={route.exact}
+                      name={route.name}
+                      render={(props) => <route.component {...props} />}
+                    />
+                  ) : null;
+                })}
                 <Redirect from="/" to="/dashboard" />
               </Switch>
             </Container>

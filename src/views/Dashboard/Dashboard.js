@@ -520,7 +520,41 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="animated fadeIn" style={{ marginTop: "1%" }}>
+      <div className="animated fadeIn">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card-counter primary">
+              <i class="fa fa-code-fork"></i>
+              <span class="count-numbers">Ended</span>
+              <span class="count-name">Status</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card-counter danger">
+              <i class="fa fa-ticket"></i>
+              <span class="count-numbers">0</span>
+              <span class="count-name">Instances</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card-counter success">
+              <i class="fa fa-user"></i>
+              <span class="count-numbers">0</span>
+              <span class="count-name">Candidates</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card-counter info">
+              <i class="fa fa-users"></i>
+              <span class="count-numbers">0</span>
+              <span class="count-name">Voters</span>
+            </div>
+          </div>
+        </div>
+
         <Row>
           <Col>
             <Card>
@@ -529,39 +563,6 @@ class Dashboard extends Component {
                   <Col sm="5">
                     <CardTitle className="mb-0">Election</CardTitle>
                     <div className="small text-muted"></div>
-                  </Col>
-                  <Col sm="7" className="d-none d-sm-inline-block">
-                    <Button color="primary" className="float-right">
-                      <i className="icon-cloud-download"></i>
-                    </Button>
-                    <ButtonToolbar
-                      className="float-right"
-                      aria-label="Toolbar with button groups"
-                    >
-                      <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button
-                          color="outline-secondary"
-                          onClick={() => this.onRadioBtnClick(1)}
-                          active={this.state.radioSelected === 1}
-                        >
-                          Day
-                        </Button>
-                        <Button
-                          color="outline-secondary"
-                          onClick={() => this.onRadioBtnClick(2)}
-                          active={this.state.radioSelected === 2}
-                        >
-                          Month
-                        </Button>
-                        <Button
-                          color="outline-secondary"
-                          onClick={() => this.onRadioBtnClick(3)}
-                          active={this.state.radioSelected === 3}
-                        >
-                          Year
-                        </Button>
-                      </ButtonGroup>
-                    </ButtonToolbar>
                   </Col>
                 </Row>
                 <div

@@ -90,183 +90,72 @@ function FacialRecognition(props) {
 
     const detect1Res = await detect1.json();
     console.log("first detect===>", detect1Res);
-    const detect2 = await fetch(
-      "https://fypprojectapi.cognitiveservices.azure.com/face/v1.0/detect",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Ocp-Apim-Subscription-Key": "40844b73a3bd4d0da7ce744e48a817d6",
-        },
-        body: JSON.stringify({
-          url: url,
-        }),
-      }
-    );
-    const detect2Res = await detect2.json();
-    console.log("2nd detect===>", detect2Res);
-    const verify = await fetch(
-      "https://fypprojectapi.cognitiveservices.azure.com/face/v1.0/verify",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Ocp-Apim-Subscription-Key": "40844b73a3bd4d0da7ce744e48a817d6",
-        },
-        body: JSON.stringify({
-          faceId1: detect1Res[0].faceId,
-          faceId2: detect2Res[0].faceId,
-        }),
-      }
-    );
-    if (detect2Res.length > 0 && detect1Res.length > 0) {
-      const verifyRes = await verify.json();
-      console.log("verify==>", verifyRes);
-      if (verifyRes.isIdentical === true) {
-        props.history.push("candidates", props.location.state);
+    if (detect1Res.length > 0) {
+      const detect2 = await fetch(
+        "https://fypprojectapi.cognitiveservices.azure.com/face/v1.0/detect",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": "40844b73a3bd4d0da7ce744e48a817d6",
+          },
+          body: JSON.stringify({
+            url: url,
+          }),
+        }
+      );
+      const detect2Res = await detect2.json();
+      console.log("2nd detect===>", detect2Res);
+      if (detect2Res.length > 0) {
+        const verify = await fetch(
+          "https://fypprojectapi.cognitiveservices.azure.com/face/v1.0/verify",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Ocp-Apim-Subscription-Key": "40844b73a3bd4d0da7ce744e48a817d6",
+            },
+            body: JSON.stringify({
+              faceId1: detect1Res[0].faceId,
+              faceId2: detect2Res[0].faceId,
+            }),
+          }
+        );
+        if (detect2Res.length > 0 && detect1Res.length > 0) {
+          const verifyRes = await verify.json();
+          console.log("verify==>", verifyRes);
+          if (verifyRes.isIdentical === true) {
+            props.history.push("candidates", props.location.state);
+          } else {
+            setLoading(false);
+            setAlertType("danger");
+            setAlertMessage("Problem recognizing your face, Please try again.");
+            setShow(true);
+          }
+        } else {
+          setLoading(false);
+          setAlertType("warning");
+          setAlertMessage("Server busy.");
+          setShow(true);
+        }
       } else {
         setLoading(false);
-        setAlertType("danger");
-        setAlertMessage("Problem recognizing your face, Please try again.");
+        setAlertType("warning");
+        setAlertMessage("Please face towards the camera.");
         setShow(true);
       }
     } else {
       setLoading(false);
-      setAlertType("warning");
-      setAlertMessage("Server busy.");
+      setAlertType("danger");
+      setAlertMessage("Image recieved from DB is corrupted");
       setShow(true);
     }
   };
-
-  // const DetectandVerify = async (url) => {
-  //   fetch(
-  //     "https://fypprojectapi.cognitiveservices.azure.com/face/v1.0/detect",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Ocp-Apim-Subscription-Key": "40844b73a3bd4d0da7ce744e48a817d6",
-  //       },
-  //       body: JSON.stringify({
-  //         url: props.location.state.image,
-  //       }),
-  //     }
-  //   )
-  //     .then((responseee) => responseee.json())
-  //     .then((responseee) => {
-  //       console.log("faceID-1", responseee[0].faceId);
-  //       // setFaceID1(responseee[0].faceId);
-  //       //here is the face ID of
-  //       fetch(
-  //         "https://fypprojectapi.cognitiveservices.azure.com/face/v1.0/detect",
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             "Ocp-Apim-Subscription-Key": "40844b73a3bd4d0da7ce744e48a817d6",
-  //           },
-  //           body: JSON.stringify({
-  //             url: url,
-  //           }),
-  //         }
-  //       )
-  //         .then((response) => response.json())
-  //         .then((response) => {
-  //           console.log("faceId-2", response[0].faceId);
-  //           if (response !== undefined || response !== null) {
-  //             const body = { faceId1: faceID1, faceId2: response[0].faceId };
-  //             console.log("body:", body);
-  //             fetch(
-  //               "https://fypprojectapi.cognitiveservices.azure.com/face/v1.0/verify",
-  //               {
-  //                 method: "POST",
-  //                 headers: {
-  //                   "Content-Type": "application/json",
-  //                   "Ocp-Apim-Subscription-Key":
-  //                     "40844b73a3bd4d0da7ce744e48a817d6",
-  //                 },
-  //                 body: JSON.stringify({
-  //                   faceId1: responseee[0].faceId,
-  //                   faceId2: response[0].faceId,
-  //                 }),
-  //               }
-  //             )
-  //               .then((responsee) => responsee.json())
-  //               .then((responsee) => {
-  //                 console.log(responsee); //here is the face ID of
-  //                 SetIsIdentical(responsee.isIdentical);
-  //                 console.log("is Identical", responsee.isIdentical);
-  //                 if (responsee.isIdentical === true) {
-  //                   props.history.push("candidates", props.location.state);
-  //                 } else {
-  //                   setLoading(false);
-  //                   setAlertType("danger");
-  //                   setAlertMessage(
-  //                     "Problem recognizing your face, Please try again."
-  //                   );
-  //                   setShow(true);
-  //                 }
-  //               })
-  //               .catch((e) => {
-  //                 setLoading(false);
-  //                 console.log("Verify error", e);
-  //               });
-  //           } else {
-  //           }
-  //         })
-  //         .catch((e) => {
-  //           setLoading(false);
-  //           setAlertType("warning");
-  //           setAlertMessage("Please Face towards Camera");
-  //           setShow(true);
-  //         });
-  //     })
-  //     .catch((e) => {
-  //       setLoading(false);
-  //       setAlertType("warning");
-  //       setAlertMessage("Image in Db is corrupted");
-  //       setShow(true);
-  //     });
-  // };
-
-  // const Verify = async () => {
-  //   console.log("FACEID ==> ", faceID1);
-  //   console.log("FACEID2 ==> ", faceID2);
-  //   fetch(
-  //     "https://fypprojectapi.cognitiveservices.azure.com/face/v1.0/verify",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Ocp-Apim-Subscription-Key": "40844b73a3bd4d0da7ce744e48a817d6",
-  //       },
-  //       body: JSON.stringify({
-  //         faceId1: faceID1,
-  //         faceId2: faceID2,
-  //       }),
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       SetIsIdentical(response.isIdentical);
-  //       console.log(response.isIdentical);
-  //       SetVoter(props.location.state);
-  //       if (voter) {
-  //         gotoCandidates();
-  //       } else {
-  //         setAlertType("info");
-  //         setShow(true);
-  //         console.log("yhn masla hai....");
-  //       }
-  //     })
-  //     .catch((e) => console.log("Verify error", e));
-  // };
 
   const webcamRef = React.useRef(null);
 
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    //console.log(imageSrc);
     UploadImageToCLoud(imageSrc);
   }, [webcamRef]);
 
@@ -285,7 +174,7 @@ function FacialRecognition(props) {
         <VotingHeader />
       </AppHeader>
 
-      <div className="app-body" style={{ marginTop: "10px" }}>
+      <div className="app-body animated fadeIn" style={{ marginTop: "10px" }}>
         <Grid container spacing={2} style={{ margin: "auto" }}>
           <Grid
             item

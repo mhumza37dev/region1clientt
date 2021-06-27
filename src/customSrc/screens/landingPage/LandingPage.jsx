@@ -29,8 +29,8 @@ function LandingPage(props) {
 
   return (
     <div>
-      <header className="header-area header-sticky">
-        <div className="container">
+      <header className="header-area header-sticky animated fadeIn">
+        <div className="container animated fadeIn">
           <div className="row">
             <div className="col-12">
               <nav className="main-nav">
@@ -83,7 +83,7 @@ function LandingPage(props) {
         </div>
       </header>
       <div
-        className="welcome-area"
+        className="welcome-area animated fadeIn"
         id="welcome"
         style={{
           background: `url(${banner})center center`,
@@ -92,10 +92,10 @@ function LandingPage(props) {
           animation: "fadeIn 5s ease",
         }}
       >
-        <div className="header-text">
+        <div className="header-text animated fadeIn">
           <div className="container">
             <div className="row">
-              <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12"></div>
+              <div className="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12 animated fadeIn"></div>
               <h1 style={{ color: "white" }}>
                 "We have the <strong style={{ color: "#1f9b6b" }}>power</strong>{" "}
                 to make a difference. But we need to{" "}
@@ -105,19 +105,19 @@ function LandingPage(props) {
           </div>
         </div>
       </div>
-      <section className="section home-feature">
+      <section className="section home-feature animated fadeIn">
         <div className="container">
           <div className="row">
             <div
               className="col-lg-12 col-md-12 col-sm-12 align-self-center mobile-top-fix"
               style={{ padding: "15px" }}
             >
-              <div style={{ padding: "10px" }}>
+              <div style={{ padding: "10px" }} className="animated fadeIn">
                 <h2 className="section-title">
-                  Let’s discuss about you project
+                  Let’s discuss about our project
                 </h2>
               </div>
-              <div style={{ padding: "10px" }}>
+              <div style={{ padding: "10px" }} className="animated fadeIn">
                 <p>Simple and Easy Steps to participate.</p>
               </div>
             </div>
@@ -142,7 +142,7 @@ function LandingPage(props) {
               className="col-lg-4 col-md-6 col-sm-12 col-12"
               data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s"
             >
-              <div className="features-small-item">
+              <div className="features-small-item animated fadeIn">
                 <div className="icon">
                   <i>
                     <img src="assets/images/featured-item-01.png" alt="" />
@@ -156,10 +156,10 @@ function LandingPage(props) {
               </div>
             </div>
             <div
-              className="col-lg-4 col-md-6 col-sm-12 col-12"
+              className="col-lg-4 col-md-6 col-sm-12 col-12 animated fadeIn"
               data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s"
             >
-              <div className="features-small-item">
+              <div className="features-small-item animated fadeIn">
                 <div className="icon">
                   <i>
                     <img src="assets/images/featured-item-01.png" alt="" />
@@ -172,11 +172,11 @@ function LandingPage(props) {
           </div>
         </div>
       </section>
-      <section className="section" id="testimonials">
-        <div className="container">
-          <div className="row">
+      <section className="section animated fadeIn" id="testimonials">
+        <div className="container animated fadeIn">
+          <div className="row animated fadeIn">
             <div className="col-lg-12">
-              <div className="center-heading">
+              <div className="center-heading animated fadeIn">
                 <h2 className="section-title">Our Team</h2>
               </div>
             </div>
@@ -186,7 +186,7 @@ function LandingPage(props) {
               </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row animated fadeIn">
             <div className="col-lg-4 col-md-6 col-sm-12">
               <div className="team-item">
                 <div className="team-content">
@@ -199,14 +199,14 @@ function LandingPage(props) {
                   <div className="user-image">
                     <img src="http://placehold.it/60x60" alt="" />
                   </div>
-                  <div className="team-info">
+                  <div className="team-info animated fadeIn">
                     <h3 className="user-name">Muhammad Humza</h3>
                     <span>Developer</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-md-6 col-sm-12">
+            <div className="col-lg-4 col-md-6 col-sm-12 animated fadeIn">
               <div className="team-item">
                 <div className="team-content">
                   <i>
@@ -251,11 +251,11 @@ function LandingPage(props) {
           </div>
         </div>
       </section>
-      <section className="section colored" id="contact-us">
+      <section className="section colored animated fadeIn" id="contact-us">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="center-heading">
+              <div className="center-heading animated fadeIn">
                 <h2 className="section-title">Help Us Improve</h2>
               </div>
             </div>
@@ -268,7 +268,7 @@ function LandingPage(props) {
               </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row animated fadeIn">
             <div className="col-lg-4 col-md-6 col-sm-12">
               <h5 className="margin-bottom-30">
                 Enlighten us with your Suggestion.
@@ -285,7 +285,7 @@ function LandingPage(props) {
                 </p>
               </div>
             </div>
-            <div className="col-lg-8 col-md-6 col-sm-12">
+            <div className="col-lg-8 col-md-6 col-sm-12 animated fadeIn">
               <div className="contact-form">
                 <form id="">
                   <div className="row">

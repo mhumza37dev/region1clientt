@@ -23,31 +23,30 @@ function StartElection(props) {
   };
 
   return (
-    <div>
-    {!election ? <h1>loading.......</h1>
-      :
-    <div
-      style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      {election.status === "started" ? (
-        <h2>Election already Started.</h2>
-
+    <div className="animated fadeIn">
+      {!election ? (
+        <h1>loading.......</h1>
       ) : (
-        <div>
-        <h2>Start Election.</h2>
-        <Button  onClick={startElection}>
-          Start Election
-        </Button>
-      </div>
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          className="animated fadeIn"
+        >
+          {election.status === "started" ? (
+            <h2 className="animated fadeIn">Election already Started.</h2>
+          ) : (
+            <div className="animated fadeIn">
+              <h2>Start Election.</h2>
+              <Button onClick={startElection}>Start Election</Button>
+            </div>
+          )}
+          <br />
+        </div>
       )}
-      <br />
-    </div>
-    }
     </div>
   );
 }

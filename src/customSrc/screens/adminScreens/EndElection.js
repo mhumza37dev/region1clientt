@@ -21,7 +21,7 @@ function EndElection(props) {
     console.log(data);
   };
   return (
-    <div>
+    <div className="animated fadeIn">
       {!election ? (
         <h1>Loading.....</h1>
       ) : (
@@ -32,9 +32,10 @@ function EndElection(props) {
             left: "50%",
             transform: "translate(-50%, -50%)",
           }}
+          className="animated fadeIn"
         >
           {election.status !== "ended" ? (
-            <div>
+            <div className="animated fadeIn">
               <h2>End Election.</h2>
               <Button onClick={endElection}>End Election</Button>
               <br />

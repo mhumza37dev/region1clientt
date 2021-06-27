@@ -1,24 +1,18 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  Modal,
-  Image,
-  ActivityIndicator
-} from 'react';
+import React, { Component } from "react";
+import { StyleSheet, View, Modal, Image, ActivityIndicator } from "react";
 // import Colors from '../../config/Colors';
 
 class Loader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: this.props.isLoading
-    }
+      isLoading: this.props.isLoading,
+    };
   }
 
   static getDerivedStateFromProps(nextProps) {
     return {
-      isLoading: nextProps.isLoading
+      isLoading: nextProps.isLoading,
     };
   }
 
@@ -26,14 +20,15 @@ class Loader extends Component {
     return (
       <Modal
         transparent={true}
-        animationType={'none'}
+        animationType={"none"}
         visible={this.state.isLoading}
         style={{ zIndex: 1100 }}
-        onRequestClose={() => { }}>
+        onRequestClose={() => {}}
+      >
         <View style={styles.modalBackground}>
           <View style={styles.activityIndicatorWrapper}>
             <ActivityIndicator animating={this.state.loading} color="blue" />
-            
+
             {/* If you want to image set source here */}
             {/* <Image
               source={require('../assets/images/loader.gif')}
@@ -44,28 +39,28 @@ class Loader extends Component {
           </View>
         </View>
       </Modal>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    backgroundColor: '#rgba(0, 0, 0, 0.5)',
-    zIndex: 1000
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    backgroundColor: "#rgba(0, 0, 0, 0.5)",
+    zIndex: 1000,
   },
   activityIndicatorWrapper: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     height: 100,
     width: 100,
     borderRadius: 10,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around'
-  }
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
 });
 
-export default Loader
+export default Loader;
