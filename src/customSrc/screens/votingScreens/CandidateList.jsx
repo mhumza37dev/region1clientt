@@ -11,6 +11,7 @@ import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 import Badge from "react-bootstrap/Badge";
 import { useLoading, Bars } from "@agney/react-loading";
+import { set } from "core-js/library/fn/dict";
 
 // import { useModal } from "react-simple-modal-provider";
 
@@ -67,8 +68,8 @@ const CandidateList = (props) => {
   };
 
   let key = "myprivateSalt";
-  // const myCipher = Encrypt(key)
   const myDecipher = decipher(key);
+
   useEffect(() => {
     fetch("https://region1server.herokuapp.com/election/")
       .then((res) => res.json())
@@ -147,7 +148,11 @@ const CandidateList = (props) => {
             if (res.message === "Vote Casted.!") {
               updateVoterStatus(nic);
             } else {
+              setGif(false);
               setNotCasted(true);
+              set(() => {
+                handleClose();
+              }, 3000);
             }
           })
           .catch((e) => {
@@ -179,11 +184,12 @@ const CandidateList = (props) => {
           updatecandiateCount(nic);
         } else {
           setNotCasted(true);
+          setGif(false);
+          set(() => {
+            handleClose();
+          }, 1000);
         }
       });
-    // .catch((e) => {
-    //   console.log("error while updating voter status==>", e);
-    // });
   };
 
   const updatecandiateCount = (nic) => {
@@ -204,9 +210,17 @@ const CandidateList = (props) => {
 
         if (res.message === "updated") {
           setCasted(true);
-          alert(res.message);
+          setGif(false);
+          setTimeout(() => {
+            props.history.push("eligibility", electionStatus);
+          }, 3000);
+          //   alert(res.message);
         } else {
           setNotCasted(true);
+          setGif(false);
+          set(() => {
+            handleClose();
+          }, 1000);
         }
       });
   };
@@ -244,9 +258,9 @@ const CandidateList = (props) => {
       </AppHeader>
 
       <div className="app-body">
-        <div class="container animated fadeIn">
+        <div className="container animated fadeIn">
           <div
-            class="row"
+            className="row"
             style={{
               marginTop: "60px",
               marginLeft: "60px",
@@ -300,19 +314,12 @@ const CandidateList = (props) => {
                   </span>
                 ) : null}
               </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
-                </Button>
-                <Button variant="primary">Understood</Button>
-              </Modal.Footer>
             </Modal>
-            {candidate.map((candidate, key) => (
+            {candidate.map((candidate) => (
               <>
-                <div class="col-sm-12 col-md-6 col-xl-6">
+                <div className="col-sm-12 col-md-6 col-xl-6">
                   <div
                     className="card"
-                    key={key}
                     style={{ maxWidth: "300px", height: "400px" }}
                   >
                     <h2>
@@ -368,10 +375,7 @@ const CandidateList = (props) => {
                             //   castVOte(myDecipher(candidate.cnic));
                             // props.history.push("eligibility", electionStatus);
                             handleShow();
-                            setTimeout(() => {
-                              setGif(false);
-                              setNotCasted(true);
-                            }, 2000);
+                            castVOte(myDecipher(candidate.cnic));
                           }}
                         >
                           Vote

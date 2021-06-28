@@ -4,7 +4,7 @@ import ResultHeader from "./ResultHeader";
 import VotingFooter from "../../components/votingComponents/VotingFooter";
 
 import { AppFooter, AppHeader } from "@coreui/react";
-
+import ProgressBar from "react-bootstrap/ProgressBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -13,6 +13,8 @@ function Result(props) {
   const [winner, setWinner] = useState();
   const [totalVotes, setTotalVotes] = useState();
   const classes = useStyles();
+
+  const [now, setNow] = useState(parseFloat((13 / 150) * 100).toFixed(2));
 
   let key = "myprivateSalt";
   const decipher = (salt) => {
@@ -49,6 +51,12 @@ function Result(props) {
           });
           setWinner(max);
           console.log(parseFloat(myDecipher(max.VoteCount)));
+          console.log(
+            (
+              parseFloat((parseFloat(myDecipher(max.VoteCount)) + 1) / 150) *
+              100
+            ).toFixed(2)
+          );
         });
 
       fetch("https://region1server.herokuapp.com/votes/")
@@ -103,8 +111,6 @@ function Result(props) {
                 position: "absolute",
                 top: "18%",
                 left: "50%",
-                //   -ms-transform: translateX(-50%) translateY(-50%),
-                //   -web: translate(-50%, -50%),
                 transform: "translate(-50%, -50%)",
               }}
             >
@@ -116,7 +122,6 @@ function Result(props) {
                 <Avatar
                   alt="..."
                   src={winner !== undefined && winner.image}
-                  // src="https://i1.wp.com/thekashmirwalla.com/wp-content/uploads/2020/05/imran-khan-pak.jpg?fit=760%2C443&ssl=1"
                   className={`${classes.large} medal-box`}
                 />
               </div>
@@ -166,8 +171,8 @@ function Result(props) {
                     </thead>
                     <tbody>
                       {candidates !== undefined &&
-                        candidates.map((can) => (
-                          <tr>
+                        candidates.map((can, key) => (
+                          <tr key={key}>
                             <th
                               scope="row"
                               style={{ textTransform: "uppercase" }}
@@ -176,30 +181,30 @@ function Result(props) {
                             </th>
                             <td>
                               <div>
-                                <div className="progress">
-                                  {`${myDecipher(can.VoteCount)}%`}
-                                  <div
-                                    className="progress-bar bg-gradient-danger"
-                                    role="progressbar"
-                                    aria-valuenow={myDecipher(can.VoteCount)}
-                                    aria-valuemin={0}
-                                    aria-valuemax={totalVotes}
-                                    style={{
-                                      width: `${
-                                        (parseFloat(myDecipher(can.VoteCount)) /
-                                          parseFloat(totalVotes)) *
-                                        100
-                                      }%`,
-                                    }}
-                                  />
-                                </div>
+                                <ProgressBar
+                                  variant="success"
+                                  min={0}
+                                  now={(
+                                    parseFloat(
+                                      (parseFloat(myDecipher(can.VoteCount)) +
+                                        1) /
+                                        totalVotes
+                                    ) * 100
+                                  ).toFixed(2)}
+                                  label={`${(
+                                    parseFloat(
+                                      (parseFloat(myDecipher(can.VoteCount)) +
+                                        1) /
+                                        totalVotes
+                                    ) * 100
+                                  ).toFixed(2)}%`}
+                                  max={100}
+                                />
                               </div>
                             </td>
                             <td>
                               <div className="d-flex align-items-center">
-                                <span className="mr-2">{`${myDecipher(
-                                  can.VoteCount
-                                )}`}</span>
+                                <span className="mr-2">{totalVotes}</span>
                               </div>
                             </td>
                           </tr>

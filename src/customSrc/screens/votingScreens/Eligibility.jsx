@@ -158,6 +158,8 @@ function Eligibility(props) {
   });
 
   const checker = async () => {
+    setOpen(false);
+
     if (state.name == "" || state.cnic == "") {
       setError("Please Fill Complete Form");
       setOpen(true);
