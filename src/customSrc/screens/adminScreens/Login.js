@@ -61,21 +61,7 @@ const Login = (props) => {
   };
 
   let key = "myprivateSalt";
-
   const myCipher = cipher(key);
-
-  // console.log(myCipher("false"));
-
-  function search(nameKey, myArray) {
-    for (var i = 0; i < myArray.length; i++) {
-      if (myArray[i].email === nameKey) {
-        console.log(myArray[i]);
-        return myArray[i];
-      } else {
-        return null;
-      }
-    }
-  }
 
   const decipher = (salt) => {
     const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
@@ -105,11 +91,11 @@ const Login = (props) => {
       setVisible(true);
     } else {
       if (allAdmin !== undefined || allAdmin !== null) {
-        var adminnn = search(myCipher(email), allAdmin);
-        console.log("region admin===>", adminnn);
-        if (adminnn !== null) {
-          if (adminnn.password === myCipher(pass)) {
-            localStorage.setItem("admin", JSON.stringify(adminnn));
+        var currentAdmin = allAdmin.find((x) => x.email === myCipher(email));
+        console.log("xxxxxxx", currentAdmin);
+        if (currentAdmin !== null || currentAdmin !== undefined) {
+          if (currentAdmin.password === myCipher(pass)) {
+            localStorage.setItem("admin", JSON.stringify(currentAdmin));
             console.log(email, pass);
             props.history.push("/dashboard");
           } else {
