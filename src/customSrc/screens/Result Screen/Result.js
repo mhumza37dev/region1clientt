@@ -186,15 +186,13 @@ function Result(props) {
                                   min={0}
                                   now={(
                                     parseFloat(
-                                      (parseFloat(myDecipher(can.VoteCount)) +
-                                        1) /
+                                      parseFloat(myDecipher(can.VoteCount)) /
                                         totalVotes
                                     ) * 100
                                   ).toFixed(2)}
                                   label={`${(
                                     parseFloat(
-                                      (parseFloat(myDecipher(can.VoteCount)) +
-                                        1) /
+                                      parseFloat(myDecipher(can.VoteCount)) /
                                         totalVotes
                                     ) * 100
                                   ).toFixed(2)}%`}
