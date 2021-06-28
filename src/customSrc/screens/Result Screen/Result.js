@@ -202,7 +202,7 @@ function Result(props) {
                             </td>
                             <td>
                               <div className="d-flex align-items-center">
-                                <span className="mr-2">{totalVotes}</span>
+                                <span className="mr-2">{can.VoteCount}</span>
                               </div>
                             </td>
                           </tr>
