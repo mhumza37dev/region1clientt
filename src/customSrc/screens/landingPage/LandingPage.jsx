@@ -248,6 +248,50 @@ function LandingPage(props) {
                 </div>
               </div>
             </div>
+
+            <div className="col-lg-4 col-md-6 col-sm-12">
+              <div className="team-item">
+                <div className="team-content">
+                  <i>
+                    <img
+                      src="https://media.istockphoto.com/vectors/software-language-programmer-avatar-vector-id861345414?k=6&m=861345414&s=612x612&w=0&h=TGR08ptSslwknq5Wi5xoxjiUXgrijnXQHFKdQuGKfts="
+                      alt=""
+                      style={{ width: "70%" }}
+                    />
+                  </i>
+                  <p></p>
+                  <div className="user-image">
+                    <img src="http://placehold.it/60x60" alt="" />
+                  </div>
+                  <div className="team-info">
+                    <h3 className="user-name">Syed Mustafa</h3>
+                    <span>Q/A</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-4 col-md-6 col-sm-12">
+              <div className="team-item">
+                <div className="team-content">
+                  <i>
+                    <img
+                      src="https://media.istockphoto.com/vectors/software-language-programmer-avatar-vector-id861345414?k=6&m=861345414&s=612x612&w=0&h=TGR08ptSslwknq5Wi5xoxjiUXgrijnXQHFKdQuGKfts="
+                      alt=""
+                      style={{ width: "70%" }}
+                    />
+                  </i>
+                  <p></p>
+                  <div className="user-image">
+                    <img src="http://placehold.it/60x60" alt="" />
+                  </div>
+                  <div className="team-info">
+                    <h3 className="user-name">Hassan Ahmed</h3>
+                    <span>Q/A</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
